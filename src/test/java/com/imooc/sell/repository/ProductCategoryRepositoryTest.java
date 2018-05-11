@@ -9,6 +9,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -41,4 +45,9 @@ public class ProductCategoryRepositoryTest {
         assertTrue(L+"delete", result == null);
     }
 
+    @Test
+    public void findByCategoryTypeIn(){
+        List<ProductCategory> productCategories = productCategoryRepository.findByCategoryTypeIn(Arrays.asList(1, 2, 3, 1));
+        assertTrue(L+"findByCategoryTypeIn", productCategories != null);
+    }
 }

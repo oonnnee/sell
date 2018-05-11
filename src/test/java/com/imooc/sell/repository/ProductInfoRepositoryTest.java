@@ -1,6 +1,8 @@
 package com.imooc.sell.repository;
 
 import com.imooc.sell.dataobject.ProductInfo;
+import com.imooc.sell.enums.OrderStatusEnum;
+import com.imooc.sell.enums.ProductStatusEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -49,5 +52,13 @@ public class ProductInfoRepositoryTest {
         productInfoRepository.delete("123");
         result = productInfoRepository.findOne("123");
         assertTrue(L+"delete", result == null);
+    }
+
+
+    @Test
+    @Transactional
+    public void findByProductStatus(){
+        List<ProductInfo> productInfos = productInfoRepository.findByProductStatus(ProductStatusEnum.UP.getCode());
+        assertTrue(L+"findByProductStatus", productInfos!=null && productInfos.size()>0);
     }
 }
