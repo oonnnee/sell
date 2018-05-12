@@ -2,8 +2,12 @@ package com.imooc.sell.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class ResultVO<T> {
+public class ResultVO<T> implements Serializable {
+
+    private static final long serialVersionUID = -3483083169442407726L;
 
     private Integer code;
 
@@ -12,6 +16,11 @@ public class ResultVO<T> {
     private T data;
 
     public ResultVO() {
+    }
+
+    public ResultVO(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
     }
 
     public ResultVO(Integer code, String msg, T data) {

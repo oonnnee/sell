@@ -9,6 +9,7 @@ import com.imooc.sell.vo.buyer.ProductCategoryVO;
 import com.imooc.sell.vo.buyer.ProductInfoVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ public class BuyerProductController {
     private ProductCategoryService productCategoryService;
 
     @GetMapping("/list")
+    @Cacheable(cacheNames = "product", key = "123")
     public ResultVO list(){
         // 1.获取所有已上架商品
         List<ProductInfo> productInfos = productInfoService.findUPProducts();
