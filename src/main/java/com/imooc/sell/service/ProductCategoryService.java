@@ -6,6 +6,12 @@ import java.util.List;
 
 public interface ProductCategoryService {
 
+    ProductCategory findOne(Integer categoryId);
+
+    List<ProductCategory> findAll();
+
+    ProductCategory save(ProductCategory productCategory);
+
     List<ProductCategory> findByCategoryTypeIn(List<Integer> categoryTypes);
 
 }

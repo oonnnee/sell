@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -36,17 +37,22 @@ public class OrderDetailRepositoryTest {
         OrderDetail result = null;
 
         result = orderDetailRepository.save(orderDetail);
-        assertTrue(L+"save", result != null);
+        assertTrue(L + "save", result != null);
 
         orderDetail.setProductName("oonnnee");
         result = orderDetailRepository.save(orderDetail);
-        assertTrue(L+"update", result.getProductName().equals("oonnnee"));
+        assertTrue(L + "update", result.getProductName().equals("oonnnee"));
 
         result = orderDetailRepository.findOne("123");
-        assertTrue(L+"findOne", result != null);
+        assertTrue(L + "findOne", result != null);
 
         orderDetailRepository.delete("123");
         result = orderDetailRepository.findOne("123");
-        assertTrue(L+"delete", result == null);
+        assertTrue(L + "delete", result == null);
+    }
+
+    @Test
+    public void findByOrderId(){
+        List<OrderDetail> orderDetails = orderDetailRepository.findByOrderId("100");
     }
 }

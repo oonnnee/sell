@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
@@ -48,5 +51,11 @@ public class OrderMasterRepositoryTest {
         orderMasterRepository.delete("123");
         result = orderMasterRepository.findOne("123");
         assertTrue(L+"delete", result == null);
+    }
+
+    @Test
+    public void findByBuyerOpenid(){
+        PageRequest pageRequest = new PageRequest(0, 10);
+        Page<OrderMaster> orderMasters = orderMasterRepository.findByBuyerOpenid("daemon", pageRequest);
     }
 }
