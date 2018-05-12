@@ -2,6 +2,8 @@ package com.imooc.sell.service.impl;
 
 import com.imooc.sell.dataobject.ProductInfo;
 import com.imooc.sell.enums.ProductStatusEnum;
+import com.imooc.sell.enums.ResultEnum;
+import com.imooc.sell.exceptions.SellException;
 import com.imooc.sell.repository.ProductInfoRepository;
 import com.imooc.sell.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,11 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     @Override
     public ProductInfo decreaseStock(String productId, Integer quantity) {
         ProductInfo productInfo = productInfoRepository.findOne(productId);
-        productInfo.setProductStock(productInfo.getProductStock()-quantity);
+        int leave = productInfo.getProductStock()-quantity;
+        if (leave < 0){
+            throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
+        }
+        productInfo.setProductStock(leave);
         return productInfoRepository.save(productInfo);
     }
 }
